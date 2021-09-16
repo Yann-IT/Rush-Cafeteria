@@ -1,15 +1,15 @@
 import java.util.*;
 
 public class Cafet{
-    ArrayList<Person> personList;
-    ArrayList<Person> notUsedInShift;
+    static ArrayList<Person> personList;
+    static ArrayList<Person> notUsedInShift;
     public static void init(String[] persons, String[] rooms){
         for (String person : persons) {
-            personList.add(new Person(person, persons, rooms));
+            personList.add(new Person(person, rooms));
         }
     }
 
-    static void printArrayList(ArrayList array, String[] rooms) {
+    public static void printArrayList(ArrayList array, String[] rooms) {
         System.out.print("ArrayList[");
         for (int i = 0; i < array.size(); i++) {
             System.out.print("\n  Day(" + (i + 1) + ")[");
@@ -32,22 +32,23 @@ public class Cafet{
 
     public static ArrayList<Object> findDuos(){
         ArrayList<Object> list = new ArrayList<>();
-        while(notUsedInShift.length()>0){
-            Map<String, ArrayList<Person>> duo = notUsedInShift[0].findDuo(this.notUsedInShift);
+        while(notUsedInShift.size()>0){
+            Map<String, ArrayList<Person>> duo = notUsedInShift.get(0).findDuo(notUsedInShift);
             list.add(duo);
-            notUsedInShift.remove(notUsedInShift[0]);
+            notUsedInShift.remove(notUsedInShift.get(0));
             notUsedInShift.remove(duo.get(1));
         }
+        return list;
     }
 
-    public static byShift(String[] rooms){
+    public static ArrayList<Object> byShift(String[] rooms){
         notUsedInShift = personList;
         ArrayList<Object> listShifts = new ArrayList<>();
-        for (String rooms : rooms) {
-            ArrayList<Object> list = new ArrayList<>();
-            list = findDuos();
-            list.add(map);
+        for (String room : rooms) {
+            ArrayList<Object> map = findDuos();
+            listShifts.add(map);
         }
+        return listShifts;
     }
     public static void main(String[] args) {
         String[] employees = {"Marcus", "Lateefa", "Donald", "Rashad", "Quincy", "Mia"};
